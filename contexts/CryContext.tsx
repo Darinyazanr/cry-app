@@ -19,7 +19,7 @@ interface CryContextType {
   error: string | null;
   
   // 操作方法
-  saveRecord: (smiled: boolean, reason?: string, photoUri?: string) => Promise<void>;
+  saveRecord: (cried: boolean, reason?: string, photoUri?: string) => Promise<void>;
   deleteRecord: (date: string) => Promise<void>;
   updateNotificationSettings: (settings: Partial<NotificationSettings>) => Promise<void>;
   refreshData: () => void;
@@ -94,7 +94,7 @@ export function CryProvider({ children }: CryProviderProps) {
     photoUri?: string
   ) => {
     const today = getTodayDate();
-    await storageService.saveRecord(today, smiled, reason, photoUri);
+    await storageService.saveRecord(today, cried, reason, photoUri);
     refreshData();
   }, [refreshData]);
 

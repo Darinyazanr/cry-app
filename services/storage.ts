@@ -119,7 +119,7 @@ class StorageService {
   /**
    * 打卡
    */
-  async checkIn(smiled: boolean, reason?: string, photoUri?: string): Promise<CryRecord> {
+  async checkIn(cried: boolean, reason?: string, photoUri?: string): Promise<CryRecord> {
     const today = getTodayDate();
     let photoPath: string | undefined;
 
@@ -131,7 +131,7 @@ class StorageService {
     const record: CryRecord = {
       id: generateId(),
       date: today,
-      smiled,
+      cried,
       reason,
       photoPath,
       createdAt: Date.now(),
@@ -146,7 +146,7 @@ class StorageService {
    * 保存或更新打卡记录（支持指定日期）
    * Context 层调用的统一入口
    */
-  async saveRecord(date: string, smiled: boolean, reason?: string, photoUri?: string): Promise<CryRecord> {
+  async saveRecord(date: string, cried: boolean, reason?: string, photoUri?: string): Promise<CryRecord> {
     let photoPath: string | undefined;
 
     if (photoUri && Platform.OS !== 'web') {
@@ -162,7 +162,7 @@ class StorageService {
     const record: CryRecord = {
       id: existing?.id || generateId(),
       date,
-      smiled,
+      cried,
       reason,
       photoPath,
       createdAt: existing?.createdAt || Date.now(),
