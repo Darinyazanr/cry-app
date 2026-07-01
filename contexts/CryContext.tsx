@@ -89,7 +89,7 @@ export function CryProvider({ children }: CryProviderProps) {
    * 保存打卡记录
    */
   const saveRecord = useCallback(async (
-    smiled: boolean,
+    cried: boolean,
     reason?: string,
     photoUri?: string
   ) => {
