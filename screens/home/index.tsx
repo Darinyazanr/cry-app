@@ -35,12 +35,15 @@ export default function HomeScreen() {
   const [reason, setReason] = useState('');
   const [photoUri, setPhotoUri] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // 是否为修改模式（已有今日记录时点修改进入）
+  const [isEditing, setIsEditing] = useState(false);
 
   // 所有 hooks 必须在 early return 之前调用（React Hooks 规则）
   const handleMoodSelect = useCallback((smiled: boolean) => {
     setSelectedMood(smiled);
     setReason(todayRecord?.reason || '');
     setPhotoUri(todayRecord?.photoPath || null);
+    setIsEditing(!!todayRecord);
     setModalVisible(true);
   }, [todayRecord]);
 
@@ -104,6 +107,7 @@ export default function HomeScreen() {
     setSelectedMood(null);
     setReason('');
     setPhotoUri(null);
+    setIsEditing(false);
   }, []);
 
   const isCheckedIn = !!todayRecord;
@@ -242,12 +246,43 @@ export default function HomeScreen() {
 
           <BottomSheet.Body>
             <ScrollView showsVerticalScrollIndicator={false}>
+              {/* 编辑模式：允许切换心情 */}
+              {isEditing && (
+                <View className="mb-6">
+                  <Text className="text-sm font-medium text-[#374151] mb-3">修改心情</Text>
+                  <View className="flex-row gap-3">
+                    <TouchableOpacity
+                      style={[
+                        styles.moodToggle,
+                        selectedMood === true && styles.moodToggleActive,
+                        selectedMood === true && { backgroundColor: '#E0E7FF', borderColor: '#6366F1' },
+                      ]}
+                      onPress={() => setSelectedMood(true)}
+                    >
+                      <MoodEmoji type="cried" size={28} />
+                      <Text className={`text-sm font-medium ${selectedMood === true ? 'text-[#6366F1]' : 'text-[#64748B]'}`}>哭了</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[
+                        styles.moodToggle,
+                        selectedMood === false && styles.moodToggleActive,
+                        selectedMood === false && { backgroundColor: '#F1F5F9', borderColor: '#64748B' },
+                      ]}
+                      onPress={() => setSelectedMood(false)}
+                    >
+                      <MoodEmoji type="notCried" size={28} />
+                      <Text className={`text-sm font-medium ${selectedMood === false ? 'text-[#64748B]' : 'text-[#94A3B8]'}`}>没哭</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )}
+
               <View className="mb-6">
                 <Text className="text-sm font-medium text-[#374151] mb-2">简短描述（可选）</Text>
                 <TextInput
                   className="bg-[#F9FAFB] rounded-xl p-3.5 text-sm text-[#1F2937]"
                   style={{ minHeight: 80 }}
-                  placeholder="今天为什么哭/没哭..."
+                  placeholder="今天为什么笑/没哭..."
                   placeholderTextColor="#94A3B8"
                   value={reason}
                   onChangeText={setReason}
@@ -287,7 +322,7 @@ export default function HomeScreen() {
 
           <BottomSheet.Footer>
             <TouchableOpacity
-              className={`rounded-xl py-3.5 items-center ${isSubmitting ? 'bg-[#A5B4FC]' : 'bg-[#6366F1]'}`}
+              className={`rounded-xl py-3.5 items-center ${isSubmitting ? 'bg-[#FCD34D]' : 'bg-[#6366F1]'}`}
               onPress={handleSubmit}
               disabled={isSubmitting}
             >
@@ -399,5 +434,20 @@ const styles = StyleSheet.create({
     right: -8,
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
+  },
+  moodToggle: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    paddingVertical: 12,
+    borderRadius: 14,
+    borderWidth: 2,
+    borderColor: '#E5E7EB',
+    backgroundColor: '#FFFFFF',
+  },
+  moodToggleActive: {
+    borderWidth: 2,
   },
 });
