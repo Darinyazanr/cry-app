@@ -26,7 +26,7 @@ type Period = 'week' | 'month';
 interface DailyStat {
   date: string;
   label: string;
-  smiled: boolean | null;
+  cried: boolean | null;
 }
 
 export default function StatsScreen() {
@@ -56,7 +56,7 @@ export default function StatsScreen() {
       return {
         date: dateStr,
         label: date.format(period === 'week' ? 'dddd' : 'MM/DD'),
-        smiled: record ? record.cried : null,
+        cried: record ? record.cried : null,
       };
     });
   }, [allRecords, period]);
@@ -67,16 +67,16 @@ export default function StatsScreen() {
     return Math.max(...counts, 1);
   }, [dailyStats]);
 
-  const getBarColor = useCallback((smiled: boolean | null): string => {
-    if (smiled === true) return '#22C55E';
-    if (smiled === false) return '#94A3B8';
+  const getBarColor = useCallback((cried: boolean | null): string => {
+    if (cried === true) return '#22C55E';
+    if (cried === false) return '#94A3B8';
     return '#E5E7EB';
   }, []);
 
   const periodStats = useMemo(() => {
     const total = dailyStats.filter(d => d.cried !== null).length;
-    const smiled = dailyStats.filter(d => d.cried === true).length;
-    return { total, smiled, rate: total > 0 ? Math.round((smiled / total) * 100) : 0 };
+    const cried = dailyStats.filter(d => d.cried === true).length;
+    return { total, cried, rate: total > 0 ? Math.round((cried / total) * 100) : 0 };
   }, [dailyStats]);
 
   return (
