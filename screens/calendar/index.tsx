@@ -151,7 +151,7 @@ export default function CalendarScreen() {
 
     // 有记录
     if (day.record) {
-      return day.record.smiled ? '#DCFCE7' : '#F1F5F9';
+      return day.record.cried ? '#DCFCE7' : '#F1F5F9';
     }
 
     return 'transparent';
@@ -265,7 +265,7 @@ export default function CalendarScreen() {
                 </Text>
                 {day.record && (
                   <Text style={styles.moodIndicator}>
-                    <MoodEmoji type={day.record.smiled ? 'smiled' : 'notSmiled'} />
+                    <MoodEmoji type={day.record.cried ? 'cried' : 'notCried'} />
                   </Text>
                 )}
               </TouchableOpacity>
@@ -282,14 +282,14 @@ export default function CalendarScreen() {
           <View style={styles.summaryDivider} />
           <View style={styles.summaryItem}>
             <Text style={[styles.summaryNumber, { color: '#22C55E' }]}>
-              {allRecords.filter(r => r.smiled).length}
+              {allRecords.filter(r => r.cried).length}
             </Text>
             <Text style={styles.summaryLabel}>哭了</Text>
           </View>
           <View style={styles.summaryDivider} />
           <View style={styles.summaryItem}>
             <Text style={[styles.summaryNumber, { color: '#94A3B8' }]}>
-              {allRecords.filter(r => !r.smiled).length}
+              {allRecords.filter(r => !r.cried).length}
             </Text>
             <Text style={styles.summaryLabel}>没哭</Text>
           </View>
@@ -310,9 +310,9 @@ export default function CalendarScreen() {
             {selectedRecord ? (
               <>
                 <View style={styles.detailMood}>
-                  <MoodEmoji type={selectedRecord.smiled ? 'smiled' : 'notSmiled'} style={styles.detailEmoji} />
+                  <MoodEmoji type={selectedRecord.cried ? 'cried' : 'notCried'} style={styles.detailEmoji} />
                   <Text style={styles.detailMoodText}>
-                    {selectedRecord.smiled ? '今天哭了' : '今天没哭'}
+                    {selectedRecord.cried ? '今天哭了' : '今天没哭'}
                   </Text>
                 </View>
 

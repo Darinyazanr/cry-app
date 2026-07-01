@@ -38,7 +38,7 @@ export default function StatsScreen() {
   // 流泪率
   const smileRate = useMemo(() => {
     if (allRecords.length === 0) return 0;
-    const smiledCount = allRecords.filter(r => r.smiled).length;
+    const smiledCount = allRecords.filter(r => r.cried).length;
     return Math.round((smiledCount / allRecords.length) * 100);
   }, [allRecords]);
 
@@ -56,14 +56,14 @@ export default function StatsScreen() {
       return {
         date: dateStr,
         label: date.format(period === 'week' ? 'dddd' : 'MM/DD'),
-        smiled: record ? record.smiled : null,
+        smiled: record ? record.cried : null,
       };
     });
   }, [allRecords, period]);
 
   // 连续打卡趋势（用于柱状图）
   const maxCount = useMemo(() => {
-    const counts = dailyStats.map(d => d.smiled === true ? 1 : 0);
+    const counts = dailyStats.map(d => d.cried === true ? 1 : 0);
     return Math.max(...counts, 1);
   }, [dailyStats]);
 
@@ -74,8 +74,8 @@ export default function StatsScreen() {
   }, []);
 
   const periodStats = useMemo(() => {
-    const total = dailyStats.filter(d => d.smiled !== null).length;
-    const smiled = dailyStats.filter(d => d.smiled === true).length;
+    const total = dailyStats.filter(d => d.cried !== null).length;
+    const smiled = dailyStats.filter(d => d.cried === true).length;
     return { total, smiled, rate: total > 0 ? Math.round((smiled / total) * 100) : 0 };
   }, [dailyStats]);
 
@@ -142,7 +142,7 @@ export default function StatsScreen() {
               </View>
               <View style={styles.periodStatItem}>
                 <Text style={[styles.periodStatNumber, { color: '#22C55E' }]}>
-                  {periodStats.smiled}
+                  {periodStats.cried}
                 </Text>
                 <Text style={styles.periodStatLabel}>流泪天数</Text>
               </View>
@@ -163,9 +163,9 @@ export default function StatsScreen() {
             <View style={styles.chartContainer}>
               <View style={styles.chartBars}>
                 {dailyStats.map((day, index) => {
-                  const barHeight = day.smiled === true
+                  const barHeight = day.cried === true
                     ? '100%'
-                    : day.smiled === false
+                    : day.cried === false
                       ? '25%'
                       : '8%';
                   return (
@@ -176,7 +176,7 @@ export default function StatsScreen() {
                             styles.bar,
                             {
                               height: barHeight,
-                              backgroundColor: getBarColor(day.smiled),
+                              backgroundColor: getBarColor(day.cried),
                             },
                           ]}
                         />

@@ -18,7 +18,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useCry } from '@/contexts/CryContext';
-import { SMILE } from '@/components/Emoji';
+import { CRY } from '@/components/Emoji';
 import BottomSheet from '@/components/BottomSheet';
 import Constants from 'expo-constants';
 
@@ -78,7 +78,7 @@ export default function SettingsScreen() {
 
   // 分享成就
   const handleShare = useCallback(async () => {
-    const message = `我在「今日流泪」连续打卡 ${streak} 天！\n总共记录了 ${totalDays} 天的流泪。\n\n你也来试试记录每天的流泪吧 ${SMILE}`;
+    const message = `我在「今日流泪」连续打卡 ${streak} 天！\n总共记录了 ${totalDays} 天的流泪。\n\n你也来试试记录每天的流泪吧 ${CRY}`;
     
     try {
       await Share.share({
@@ -242,7 +242,7 @@ export default function SettingsScreen() {
         {/* Footer */}
         <View style={[styles.footer, { paddingBottom: insets.bottom + 10 }]}>
           <Text style={styles.footerText}>今日流泪 v{Constants.expoConfig?.version || '1.0.0'}</Text>
-          <Text style={styles.footerSubtext}>保持流泪每一天 {SMILE}</Text>
+          <Text style={styles.footerSubtext}>保持流泪每一天 {CRY}</Text>
         </View>
 
         {/* 关于弹窗 */}
@@ -254,7 +254,7 @@ export default function SettingsScreen() {
             {/* App 图标和理念 */}
             <View style={styles.aboutIconRow}>
               <View style={styles.aboutIconBox}>
-                <Text style={styles.aboutIconEmoji}>{SMILE}</Text>
+                <Text style={styles.aboutIconEmoji}>{CRY}</Text>
               </View>
               <View style={styles.aboutIconText}>
                 <Text style={styles.aboutAppName}>今日流泪</Text>
@@ -329,7 +329,7 @@ export default function SettingsScreen() {
             {/* 结尾语 */}
             <View style={styles.aboutClosing}>
               <Text style={styles.aboutClosingText}>
-                愿你每天都有一万个理由流泪 {SMILE}
+                愿你每天都有一万个理由流泪 {CRY}
               </Text>
             </View>
           </BottomSheet.Body>

@@ -4,7 +4,7 @@
 export interface CryRecord {
   id: string;
   date: string; // 格式: YYYY-MM-DD
-  smiled: boolean;
+  cried: boolean;
   reason?: string;
   photoPath?: string;
   createdAt: number; // Unix 时间戳 (毫秒)

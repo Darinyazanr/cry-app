@@ -4,7 +4,7 @@
 import React from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { Screen } from '@/components/Screen';
-import { SMILE } from '@/components/Emoji';
+import { CRY } from '@/components/Emoji';
 
 interface LoadingScreenProps {
   message?: string;
@@ -14,7 +14,7 @@ export function LoadingScreen({ message = '加载中...' }: LoadingScreenProps) 
   return (
     <Screen>
       <View style={styles.container}>
-        <Text style={styles.emoji}>{SMILE}</Text>
+        <Text style={styles.emoji}>{CRY}</Text>
         <ActivityIndicator size="large" color="#6366F1" style={styles.spinner} />
         <Text style={styles.message}>{message}</Text>
       </View>

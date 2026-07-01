@@ -142,9 +142,9 @@ export default function HomeScreen() {
           <View className="flex-1 items-center">
             <Text 
               className="text-[28px] font-bold mb-1"
-              style={{ color: todayRecord?.smiled ? '#22C55E' : '#94A3B8' }}
+              style={{ color: todayRecord?.cried ? '#22C55E' : '#94A3B8' }}
             >
-              {todayRecord ? <MoodEmoji type={todayRecord.smiled ? 'smiled' : 'notSmiled'} /> : '-'}
+              {todayRecord ? <MoodEmoji type={todayRecord.cried ? 'cried' : 'notCried'} /> : '-'}
             </Text>
             <Text className="text-xs text-[#64748B]">今日状态</Text>
           </View>
@@ -155,11 +155,11 @@ export default function HomeScreen() {
           {isCheckedIn ? (
             <View className="items-center">
               <Text className="text-[72px] mb-4">
-                <MoodEmoji type={todayRecord!.smiled ? 'smiled' : 'notSmiled'} />
+                <MoodEmoji type={todayRecord!.cried ? 'cried' : 'notCried'} />
               </Text>
               <Text className="text-2xl font-semibold text-[#1F2937] mb-2">今日已打卡</Text>
               <Text className="text-base text-[#64748B] mb-5">
-                {todayRecord!.smiled ? '今天你哭得很伤心！' : '没关系，明天继续加油！'}
+                {todayRecord!.cried ? '今天你哭得很伤心！' : '没关系，明天继续加油！'}
               </Text>
               {todayRecord!.reason && (
                 <View style={styles.reasonCard}>
@@ -172,7 +172,7 @@ export default function HomeScreen() {
               )}
               <TouchableOpacity
                 style={styles.changeButton}
-                onPress={() => handleMoodSelect(todayRecord!.smiled)}
+                onPress={() => handleMoodSelect(todayRecord!.cried)}
               >
                 <Text className="text-sm text-[#64748B]">修改记录</Text>
               </TouchableOpacity>
@@ -182,11 +182,11 @@ export default function HomeScreen() {
               <Text className="text-2xl font-semibold text-[#1F2937] mb-[30px]">今天哭了吗？</Text>
               <View className="flex-row gap-5">
                 <TouchableOpacity
-                  style={styles.smiledButton}
+                  style={styles.criedButton}
                   onPress={() => handleMoodSelect(true)}
                   activeOpacity={0.8}
                 >
-                  <MoodEmoji type="smiled" style={styles.moodEmoji} />
+                  <MoodEmoji type="cried" style={styles.moodEmoji} />
                   <Text className="text-lg font-semibold text-[#374151]">哭了</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -194,7 +194,7 @@ export default function HomeScreen() {
                   onPress={() => handleMoodSelect(false)}
                   activeOpacity={0.8}
                 >
-                  <MoodEmoji type="notSmiled" style={styles.moodEmoji} />
+                  <MoodEmoji type="notCried" style={styles.moodEmoji} />
                   <Text className="text-lg font-semibold text-[#374151]">没哭</Text>
                 </TouchableOpacity>
               </View>
@@ -233,7 +233,7 @@ export default function HomeScreen() {
             <BottomSheet.Title>
               {selectedMood !== null ? (
                 <>
-                  <MoodEmoji type={selectedMood ? 'smiled' : 'notSmiled'} />{' '}
+                  <MoodEmoji type={selectedMood ? 'cried' : 'notCried'} />{' '}
                   {selectedMood ? '记录今日流泪' : '记录今天'}
                 </>
               ) : ''}
