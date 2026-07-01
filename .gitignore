@@ -4,3 +4,17 @@
 
 expo-env.d.ts
 # @end expo-cli
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Build
+dist/
+.expo/
+*.ipa
+*.apk
+*.aab
+credentials.json
+eas-build-*.log
