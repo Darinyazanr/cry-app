@@ -1,0 +1,97 @@
+import { ExpoConfig, ConfigContext } from 'expo/config';
+
+const APP_NAME = '哭了么';
+const BUNDLE_ID = 'com.cryapp.today';
+const VERSION = '1.0.0';
+const BUILD_NUMBER = '1';
+
+export default ({ config }: ConfigContext): ExpoConfig => {
+  return {
+    ...config,
+    name: APP_NAME,
+    slug: 'cry-app',
+    version: VERSION,
+    orientation: 'portrait',
+    icon: './assets/images/icon.png',
+    scheme: 'cryapp',
+    userInterfaceStyle: 'automatic',
+    newArchEnabled: true,
+    ios: {
+      supportsTablet: true,
+      bundleIdentifier: BUNDLE_ID,
+      buildNumber: BUILD_NUMBER,
+      infoPlist: {
+        ITSAppUsesNonExemptEncryption: false,
+      },
+    },
+    android: {
+      adaptiveIcon: {
+        foregroundImage: './assets/images/adaptive-icon.png',
+        backgroundColor: '#ffffff',
+      },
+      package: BUNDLE_ID,
+      versionCode: 3,
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      process.env.EXPO_PUBLIC_BACKEND_BASE_URL ? [
+        "expo-router",
+        {
+          "origin": process.env.EXPO_PUBLIC_BACKEND_BASE_URL
+        }
+      ] : 'expo-router',
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": `允许今日流泪App访问您的相册，以便您上传或保存图片。`,
+          "cameraPermission": `允许今日流泪App使用您的相机，以便您直接拍摄照片上传。`,
+          "microphonePermission": `允许今日流泪App访问您的麦克风，以便您拍摄带有声音的视频。`
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": `今日流泪App需要访问您的位置以提供周边服务及导航功能。`
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": `今日流泪App需要访问相机以拍摄照片和视频。`,
+          "microphonePermission": `今日流泪App需要访问麦克风以录制视频声音。`,
+          "recordAudioAndroid": true
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/icon.png",
+          "color": "#6366F1",
+          "sounds": []
+        }
+      ],
+      [
+        "expo-calendar",
+        {
+          "calendarPermission": `今日流泪App需要访问日历以同步您的打卡记录。`
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
